@@ -1,17 +1,27 @@
 ![Python](https://img.shields.io/badge/Python-3.9-blue)
 ![OpenCV](https://img.shields.io/badge/OpenCV-ImageProcessing-green)
 ![Scikit-Learn](https://img.shields.io/badge/ScikitLearn-PCA-orange)
+![PyTorch](https://img.shields.io/badge/PyTorch-DeepLearning-red)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-# 🌾 Rice Leaf Infection Analysis using PCA
+# 🌾 Rice Leaf Disease Analysis Framework
 
-A Python-based image analysis pipeline that applies **Principal Component Analysis (PCA)** to rice leaf RGB images to highlight **infection-related patterns** using color features and vegetation indices.
+A comprehensive **computer vision framework** for analyzing rice leaf diseases using multiple approaches:
 
-This project processes a rice leaf image and generates:
+- 📊 **Principal Component Analysis (PCA)** for infection pattern discovery  
+- 🌿 **Classical computer vision** for disease segmentation and severity estimation  
+- 🤖 **Deep learning models** for advanced disease detection  
 
-* PCA feature loadings
-* Spatial score maps for principal components
-* False-color composite visualization
+The system processes rice leaf images and produces:
+
+- PCA feature loadings  
+- spatial infection maps  
+- automatic leaf segmentation  
+- disease spot detection  
+- infection severity estimation  
+- lesion segmentation using deep learning  
+- disease classification  
+- severity heatmaps  
 
 The goal is to **enhance subtle disease patterns in rice leaves** that are difficult to observe in standard RGB images.
 
@@ -19,77 +29,83 @@ The goal is to **enhance subtle disease patterns in rice leaves** that are diffi
 
 # 📌 Project Overview
 
-Plant diseases significantly impact crop production. Early detection through image analysis can help improve crop management.
+Plant diseases significantly impact **global agricultural productivity**, especially in rice farming.
 
-This project explores how **unsupervised dimensionality reduction (PCA)** can extract meaningful patterns from leaf images by combining:
+Early disease detection helps:
 
-* RGB color channels
-* Vegetation indices
-* Normalized color ratios
-* Color deconvolution features
-* Gaussian blurred features
+- reduce crop loss  
+- improve yield management  
+- support precision agriculture  
 
-These features are analyzed using PCA to reveal hidden structures associated with **leaf health and infection patterns**.
+This project combines **three different computer vision approaches** for analyzing rice leaf infections.
+
+### 1️⃣ PCA Feature Analysis
+Unsupervised feature analysis used to detect hidden infection patterns.
+
+### 2️⃣ Classical Computer Vision Pipeline
+Traditional image processing methods for disease detection.
+
+### 3️⃣ Deep Learning Pipeline
+Modern deep learning models for segmentation and classification.
+
+Together these pipelines create a **complete research workflow for plant disease detection**.
 
 ---
 
 # 🧠 Methodology
 
-The pipeline consists of several key stages:
+The framework contains **three main analysis pipelines**.
+
+---
+
+# 📊 Pipeline 1 — PCA Infection Pattern Analysis
+
+This pipeline reveals hidden infection patterns using **Principal Component Analysis**.
 
 ### 1️⃣ Image Loading
 
-The input rice leaf image is loaded using **OpenCV** and converted from BGR to RGB format.
+The rice leaf image is loaded using **OpenCV** and converted from BGR to RGB format.
 
 ### 2️⃣ White Balance Correction
 
-A **Gray-World assumption** is applied to normalize lighting conditions across the image.
+A **Gray-World assumption** is applied to normalize lighting conditions.
 
 ### 3️⃣ Feature Extraction
 
-Multiple features are generated from the image:
+Multiple image features are extracted.
 
 #### Color Channels
-
-* R
-* G
-* B
+- R  
+- G  
+- B  
 
 #### Vegetation Indices
-
-* **ExG (Excess Green)**
-  Detects vegetation intensity.
-
-* **ExR (Excess Red)**
-  Helps differentiate disease spots.
-
-* **NDI (Normalized Difference Index)**
-  Highlights chlorophyll differences.
+- **ExG (Excess Green)** – vegetation intensity  
+- **ExR (Excess Red)** – highlights disease regions  
+- **NDI (Normalized Difference Index)** – chlorophyll variation  
 
 #### Normalized RGB
-
-* r_norm
-* g_norm
-* b_norm
+- r_norm  
+- g_norm  
+- b_norm  
 
 #### Color Deconvolution (HED)
-
 Separates stain-like components:
 
-* Hematoxylin
-* Eosin
-* DAB
+- Hematoxylin  
+- Eosin  
+- DAB  
 
-*(Optional depending on image compatibility)*
+*(optional depending on image compatibility)*
 
-#### Gaussian Blurred Features
+#### Gaussian Blur Features
 
-Two blurred versions are generated:
+Two blurred images are generated:
 
-* σ = 1
-* σ = 2
+- σ = 1  
+- σ = 2  
 
-These help capture **texture and spatial information**.
+These capture **texture and spatial information**.
 
 ---
 
@@ -97,69 +113,136 @@ These help capture **texture and spatial information**.
 
 All extracted features are:
 
-1. **Flattened**
-2. **Z-score normalized**
-3. Processed using **PCA**
+1. Flattened  
+2. Z-score normalized  
+3. Processed using PCA  
 
-The model computes:
+The model extracts:
 
-* **PC1**
-* **PC2**
-* **PC3**
+- **PC1**
+- **PC2**
+- **PC3**
 
-These components capture the **most significant variations** within the leaf image.
+These components represent the **dominant patterns in the leaf image**.
+
+---
+
+# 🌿 Pipeline 2 — Classical Computer Vision Disease Detection
+
+This pipeline performs **automatic disease detection using image processing**.
+
+### Leaf Segmentation
+The leaf is isolated using **HSV color thresholding**.
+
+### Disease Spot Detection
+Disease regions are detected using vegetation indices such as **ExG**.
+
+### Infection Severity Estimation
+
+Disease severity is calculated as:
+
+
+severity = diseased_area / leaf_area × 100
+
+
+### Machine Learning Classification
+
+A **Random Forest classifier** predicts disease type.
+
+Example classes:
+
+- Healthy  
+- Brown Spot  
+- Leaf Blast  
+
+---
+
+# 🤖 Pipeline 3 — Deep Learning Disease Detection
+
+A deep learning pipeline is implemented for **advanced disease analysis**.
+
+### Leaf Isolation
+Uses **DeepLabV3** semantic segmentation to isolate the leaf.
+
+### Lesion Segmentation
+Uses a **U-Net CNN** to detect infected regions.
+
+### Disease Classification
+Uses **EfficientNet** to classify leaf diseases.
+
+Example categories:
+
+- Healthy  
+- Brown Spot  
+- Leaf Blast  
+
+### Severity Heatmap
+
+A color heatmap visualizes the **infection intensity across the leaf**.
 
 ---
 
 # 🖼 Generated Outputs
 
-The script produces several visualization results.
+The framework generates several visual outputs.
 
 ### 1️⃣ PCA Loadings Plot
 
-Shows how each feature contributes to the principal components.
 
-```
 pca_loadings.png
-```
 
-Helps identify which features influence disease detection.
+
+Shows how each feature contributes to principal components.
 
 ---
 
 ### 2️⃣ PCA Score Maps
 
-Spatial maps showing how each principal component varies across the leaf.
 
-```
 pc1_scoremap.png
 pc2_scoremap.png
 pc3_scoremap.png
-```
 
-These maps often reveal:
 
-* Infection regions
-* Chlorosis
-* Texture changes
+These maps highlight:
+
+- infection regions  
+- chlorosis  
+- texture variation  
 
 ---
 
-### 3️⃣ False-Color PCA Composite
+### 3️⃣ False Color PCA Composite
 
-Combines the three principal components into an RGB visualization.
 
-```
 pc_rgb_composite.png
-```
+
 
 Mapping:
 
-* Red → PC1
-* Green → PC2
-* Blue → PC3
+- Red → PC1  
+- Green → PC2  
+- Blue → PC3  
 
-This produces a **feature-enhanced leaf visualization**.
+This creates a **feature-enhanced visualization of the leaf**.
+
+---
+
+### 4️⃣ Leaf Segmentation Map
+
+Binary mask representing detected leaf area.
+
+---
+
+### 5️⃣ Disease Detection Map
+
+Detected infection regions on the leaf.
+
+---
+
+### 6️⃣ Severity Heatmap
+
+Color heatmap highlighting disease intensity.
 
 ---
 
@@ -167,15 +250,15 @@ This produces a **feature-enhanced leaf visualization**.
 
 Install required dependencies:
 
-```bash
-pip install scikit-image scikit-learn opencv-python matplotlib
-```
 
-Or run in Google Colab:
+pip install scikit-image scikit-learn opencv-python matplotlib torch torchvision segmentation-models-pytorch
 
-```python
-!pip install scikit-image scikit-learn opencv-python matplotlib
-```
+
+Or in Google Colab:
+
+
+!pip install scikit-image scikit-learn opencv-python matplotlib torch torchvision segmentation-models-pytorch
+
 
 ---
 
@@ -183,65 +266,62 @@ Or run in Google Colab:
 
 ### Step 1 — Run the script
 
-Execute the notebook or Python script.
+Run one of the pipelines.
 
-### Step 2 — Upload a rice leaf image
+### PCA Analysis
 
-The script will prompt:
 
-```
-Upload image interactively
-```
+python pca_rice_leaf_analysis.py --image rice_leaf.jpg
 
-Select a rice leaf image.
 
-### Step 3 — Automatic Processing
+### Classical Detection
 
-The pipeline will:
 
-1. Extract features
-2. Run PCA
-3. Generate visualizations
-4. Save outputs
+python classical_rice_disease_detection.py
 
-Results are stored in:
 
-```
-pca_results/
-```
+### Deep Learning Detection
+
+
+python deep_learning_rice_disease_detection.py
+
 
 ---
 
 # 📁 Project Structure
 
-```
-rice-leaf-pca-analysis/
+
+rice-leaf-disease-analysis/
 │
-├── rice_leaf_pca.py
+├── pca_rice_leaf_analysis.py
+├── classical_rice_disease_detection.py
+├── deep_learning_rice_disease_detection.py
+│
 ├── README.md
 │
-├── pca_results/
-│   ├── pca_loadings.png
-│   ├── pc1_scoremap.png
-│   ├── pc2_scoremap.png
-│   ├── pc3_scoremap.png
-│   └── pc_rgb_composite.png
+├── results/
+│ ├── pca_loadings.png
+│ ├── pc1_scoremap.png
+│ ├── pc2_scoremap.png
+│ ├── pc3_scoremap.png
+│ └── pc_rgb_composite.png
 │
 └── sample_images/
-    └── rice_leaf_example.jpg
-```
+└── rice_leaf_example.jpg
+
 
 ---
 
 # 🔬 Applications
 
-This approach can be used for:
+This framework can be used for:
 
-* 🌾 Rice disease detection
-* 🌱 Plant stress analysis
-* 🧪 Agricultural research
-* 📷 Image-based crop monitoring
-* 🤖 Feature engineering for ML models
+- 🌾 Rice disease detection  
+- 🌱 Plant stress analysis  
+- 🧪 Agricultural research  
+- 📷 Image-based crop monitoring  
+- 🤖 Feature engineering for ML models  
+- 🚜 Precision agriculture  
 
 ---
 
@@ -249,33 +329,35 @@ This approach can be used for:
 
 Possible enhancements:
 
-* Integrate **disease classification models**
-* Add **automatic lesion segmentation**
-* Use **hyperspectral data**
-* Apply **deep learning feature extraction**
-* Build a **web interface for farmers**
+- real-time disease detection systems  
+- hyperspectral imaging analysis  
+- Vision Transformer models  
+- mobile applications for farmers  
+- cloud-based crop monitoring platforms  
 
 ---
 
 # 🛠 Technologies Used
 
-* Python
-* OpenCV
-* Scikit-image
-* Scikit-learn
-* Matplotlib
-* Google Colab
+- Python  
+- OpenCV  
+- Scikit-image  
+- Scikit-learn  
+- PyTorch  
+- segmentation-models-pytorch  
+- Matplotlib  
+- Google Colab  
 
 ---
 
 # 📜 License
 
-This project is open-source and available under the **MIT License**.
+This project is released under the **MIT License**.
 
 ---
 
 # 👨‍💻 Author
 
-Developed for research in **plant image analysis and crop disease detection**.
+Developed for research in **plant disease detection using computer vision and deep learning**.
 
-If you found this useful, consider ⭐ starring the repository.
+If you found this project useful, consider ⭐ starring the repository.
